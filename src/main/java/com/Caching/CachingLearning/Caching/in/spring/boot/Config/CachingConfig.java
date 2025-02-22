@@ -29,7 +29,7 @@ public class CachingConfig {
                 .entryTtl(Duration.ofSeconds(60)) //Cached data will be remain inside redis cache till 60 sec
                 .enableTimeToIdle() ///Reset the particular entry time to live data whenever any request come for that data
                 .disableCachingNullValues() //Cache will not store the null value to save memory
-                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer())) //Serialize the cache key with string serialize
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
 
         return RedisCacheManager.builder(redisConnectionFactory)

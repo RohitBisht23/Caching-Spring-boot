@@ -2,24 +2,27 @@ package com.Caching.CachingLearning.Caching.in.spring.boot.Entity;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Entity
 @Getter
 @Setter
+@Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Employee {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-
+    @Column(unique = true)
     private String email;
+
+    private String name;
 
     private Long salary;
 
+    @ManyToOne
+    private Department department;
 }
-
