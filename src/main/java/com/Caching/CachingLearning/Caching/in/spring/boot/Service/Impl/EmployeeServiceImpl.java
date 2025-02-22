@@ -3,6 +3,7 @@ package com.Caching.CachingLearning.Caching.in.spring.boot.Service.Impl;
 
 import com.Caching.CachingLearning.Caching.in.spring.boot.Dto.EmployeeDto;
 import com.Caching.CachingLearning.Caching.in.spring.boot.Entity.Employee;
+import com.Caching.CachingLearning.Caching.in.spring.boot.Entity.SalaryAccount;
 import com.Caching.CachingLearning.Caching.in.spring.boot.Exception.ResourceNotFoundException;
 import com.Caching.CachingLearning.Caching.in.spring.boot.Repository.EmployeeRepository;
 import com.Caching.CachingLearning.Caching.in.spring.boot.Service.EmployeeService;
@@ -13,8 +14,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository repository;
     private final SalaryAccountService salaryAccountService;
     private final ModelMapper modelMapper;
+    private final SalaryAccountService accountService;
     private final String CACHE_NAME = "employees";
 
 
@@ -112,4 +117,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         log.info("Successfully update employee");
         return modelMapper.map(employee, EmployeeDto.class);
     }
+
+
 }

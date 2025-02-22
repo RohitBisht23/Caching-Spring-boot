@@ -2,7 +2,9 @@ package com.Caching.CachingLearning.Caching.in.spring.boot.Controller;
 
 
 import com.Caching.CachingLearning.Caching.in.spring.boot.Dto.EmployeeDto;
+import com.Caching.CachingLearning.Caching.in.spring.boot.Entity.SalaryAccount;
 import com.Caching.CachingLearning.Caching.in.spring.boot.Service.EmployeeService;
+import com.Caching.CachingLearning.Caching.in.spring.boot.Service.SalaryAccountService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,13 +15,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/employee")
+@RequiredArgsConstructor
 public class EmployeeController {
 
     private final EmployeeService employeeService;
+    private final SalaryAccountService salaryAccountService;
 
-    public EmployeeController(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
+//    public EmployeeController(EmployeeService employeeService) {
+//        this.employeeService = employeeService;
+//    }
 
     @GetMapping("/getAllEmployee")
     public ResponseEntity<List<EmployeeDto>> getAllEmployee() {
@@ -46,5 +50,10 @@ public class EmployeeController {
         employeeService.deleteEmployeeById(id);
         return new ResponseEntity<>("Employee is successfully deleted.", HttpStatus.OK);
 
+    }
+
+    @PutMapping("/incrementBalance/{accountId}")
+    public ResponseEntity<SalaryAccount> incrementBalance(@PathVariable Long accountId) {
+        return ResponseEntity.ok(salaryAccountService.increseSalary(accountId));
     }
 }
