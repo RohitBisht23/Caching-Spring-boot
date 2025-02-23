@@ -6,6 +6,7 @@ import com.Caching.CachingLearning.Caching.in.spring.boot.Exception.ResourceNotF
 import com.Caching.CachingLearning.Caching.in.spring.boot.Repository.SalaryAccountRepository;
 import com.Caching.CachingLearning.Caching.in.spring.boot.Service.SalaryAccountService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.StaleObjectStateException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -39,7 +40,7 @@ public class SalaryAccountServiceImpl implements SalaryAccountService {
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public SalaryAccount increseSalary(Long accountId) {
         SalaryAccount account = salaryAccountRepository.findById(accountId).orElseThrow(
-                () -> new ResourceNotFoundException("Account does not exist with account id : "+accountId)
+                () -> new RuntimeException("Account does not exist with id :"+accountId)
         );
 
         BigDecimal prevBalance = account.getBalance();

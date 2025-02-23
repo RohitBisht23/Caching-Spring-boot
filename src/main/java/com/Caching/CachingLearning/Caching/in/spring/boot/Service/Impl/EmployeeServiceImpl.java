@@ -45,7 +45,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    @CachePut(cacheNames = CACHE_NAME, key = "#result.id")
+            //@CachePut(cacheNames = CACHE_NAME, key = "#result.id")
     @Transactional
     public EmployeeDto createNewEmployee(EmployeeDto newEmployee) {
         log.info("Checking if employee present with the same email");
@@ -69,7 +69,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    @Cacheable(cacheNames = CACHE_NAME, key = "#id")
+   // @Cacheable(cacheNames = CACHE_NAME, key = "#id")
     public EmployeeDto getEmployeeById(Long id) {
         log.info("Fetching the employee with id {}", id);
         Employee employee = repository.findById(id).orElse(null);
@@ -83,7 +83,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    @CacheEvict(cacheNames = CACHE_NAME, key = "#id")
+    //@CacheEvict(cacheNames = CACHE_NAME, key = "#id")
     public void deleteEmployeeById(Long id) {
         log.info("Fetching the employee with id {} that need to be delete", id);
         Employee employee = repository.findById(id).orElse(null);
@@ -98,7 +98,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    @CachePut(cacheNames = CACHE_NAME, key = "#id")
+    //@CachePut(cacheNames = CACHE_NAME, key = "#id")
     public EmployeeDto updateEmployeeById(Long id, EmployeeDto update) {
         log.info("updating employee with id : {}", id);
         Employee employee = repository.findById(id)
